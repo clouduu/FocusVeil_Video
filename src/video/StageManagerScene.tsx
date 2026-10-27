@@ -201,8 +201,7 @@ export const StageManagerScene: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                left: active === 0 ? 40 : undefined,
-                right: active === 0 ? undefined : 70,
+                right: 70,
                 top: 40,
                 width: 340,
                 minHeight: 220,
