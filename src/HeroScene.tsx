@@ -27,7 +27,7 @@ export const HeroScene: React.FC = () => {
   return (
     <AbsoluteFill>
       <Audio src={staticFile('score-bed.mp3')} volume={0.5} />
-      <Audio src={staticFile('score-cuts.mp3')} volume={0.35} />
+      <Audio src={staticFile('score-cuts.mp3')} volume={0.1} />
       <Backdrop />
       <Sequence
         name="左上角 logo"
@@ -142,9 +142,6 @@ export const HeroScene: React.FC = () => {
         name="遮罩调节"
         from={SIXTH.start}
         durationInFrames={SIXTH.end - SIXTH.start}
-        style={{
-          translate: '0px -38.8px'
-        }}
       >
         <Backdrop />
         <MaskResizeScene />
@@ -155,7 +152,7 @@ export const HeroScene: React.FC = () => {
         from={SIXTH.start + 9}
         durationInFrames={SIXTH.end - SIXTH.start - 9}
         style={{
-          translate: '0px 36.2px'
+          translate: '0px -1px'
         }}
       >
         <MaskMoveCaption />
