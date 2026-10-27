@@ -9,8 +9,7 @@ const TASKS = [{ label: 'Mail' }, { label: 'Calendar' }, { label: 'Reading' }];
 
 const MailContent: React.FC = () => (
   <div style={{ fontFamily: FONT_SANS }}>
-    <div style={{ fontSize: 20, fontWeight: 700, color: '#1F2937' }}>Inbox</div>
-    <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       {[
         { from: 'Sarah', subject: 'Re: Q3 planning', time: '9:12' },
         { from: 'Alex', subject: 'Deck feedback', time: '8:40' },
@@ -19,7 +18,7 @@ const MailContent: React.FC = () => (
         <div key={mail.subject} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ width: 22, height: 22, borderRadius: '50%', background: '#E7F2EE', flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: '#1F2937' }}>{mail.from}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#4B5563' }}>{mail.from}</div>
             <div style={{ fontSize: 11, color: '#6B7280' }}>{mail.subject}</div>
           </div>
           <span style={{ fontSize: 10, color: '#9CA3AF' }}>{mail.time}</span>
@@ -31,8 +30,7 @@ const MailContent: React.FC = () => (
 
 const CalendarContent: React.FC = () => (
   <div style={{ fontFamily: FONT_SANS }}>
-    <div style={{ fontSize: 20, fontWeight: 700, color: '#1F2937' }}>Today</div>
-    <div style={{ display: 'flex', gap: 6, marginTop: 12 }}>
+    <div style={{ display: 'flex', gap: 6 }}>
       {['M', 'T', 'W', 'T', 'F'].map((d, i) => (
         <div
           key={`${d}-${i}`}
@@ -67,10 +65,9 @@ const CalendarContent: React.FC = () => (
 
 const ReadingContent: React.FC = () => (
   <div style={{ fontFamily: FONT_SERIF }}>
-    <div style={{ fontSize: 16, fontWeight: 600, color: '#1F2937' }}>
-      The Limits of Sustained Attention
+    <div style={{ fontSize: 11, fontWeight: 500, color: '#9CA3AF', marginBottom: 8 }}>
+      The Limits of Sustained Attention · R. Chen
     </div>
-    <div style={{ fontSize: 9, color: '#9CA3AF', margin: '3px 0 10px' }}>R. Chen · 2024</div>
     <p style={{ margin: '0 0 7px', fontSize: 9, lineHeight: 1.6, color: '#4B5563' }}>
       Attention is a limited resource, allocated across the competing streams of information that
       arrive at any given moment.
@@ -134,11 +131,11 @@ export const MultitaskScene: React.FC = () => {
                 <div
                   style={{
                     fontFamily: FONT_SANS,
-                    fontSize: 11,
+                    fontSize: 17,
                     fontWeight: 700,
-                    letterSpacing: 1,
-                    color: '#9CA3AF',
-                    marginBottom: 10,
+                    letterSpacing: 0,
+                    color: '#111827',
+                    marginBottom: 12,
                   }}
                 >
                   {task.label.toUpperCase()}
