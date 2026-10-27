@@ -176,7 +176,7 @@ export const StageManagerScene: React.FC = () => {
               height: 720,
               position: 'relative',
               overflow: 'hidden',
-              background: '#FFFFFF',
+              background: stage.note,
             }}
           >
             <div style={{ position: 'absolute', left: 30, top: 40, display: 'flex', flexDirection: 'column', gap: 56 }}>
