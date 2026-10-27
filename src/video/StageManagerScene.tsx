@@ -171,7 +171,7 @@ export const StageManagerScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ opacity: enter, transform: `translateY(${(1 - enter) * 20 + 140}px) scale(1.26)` }}>
+      <div style={{ opacity: enter, transform: `translateY(${(1 - enter) * 20 + 180}px) scale(1.36)` }}>
         <MacChrome>
           <div
             style={{
