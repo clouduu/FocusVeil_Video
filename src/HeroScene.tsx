@@ -12,6 +12,7 @@ import { StageManagerCaption } from './video/StageManagerCaption';
 import { StageManagerScene } from './video/StageManagerScene';
 import { GlobalNoteScene } from './video/GlobalNoteScene';
 import { MaskFocusCaption } from './video/MaskFocusCaption';
+import { MultitaskScene } from './video/MultitaskScene';
 import { MaskFocusScene } from './video/MaskFocusScene';
 import { MaskMoveCaption } from './video/MaskMoveCaption';
 import { MaskResizeScene } from './video/MaskResizeScene';
@@ -19,7 +20,7 @@ import { Cover } from './video/Cover';
 import { LineSkipCaption } from './video/LineSkipCaption';
 import { ReReadingCaption } from './video/ReReadingCaption';
 import { TryCaption } from './video/TryCaption';
-import { EIGHTH, FIFTH, FOURTH, FPS, NINTH, SECOND, SEVENTH, SIXTH, TENTH, THIRD, T } from './video/timeline';
+import { EIGHTH, FIFTH, FOURTH, FPS, MULTI, NINTH, SECOND, SEVENTH, SIXTH, TENTH, THIRD, T } from './video/timeline';
 
 export const HeroScene: React.FC = () => {
   return (
@@ -62,6 +63,15 @@ export const HeroScene: React.FC = () => {
         }}
       >
         <ReReadingCaption />
+      </Sequence>
+
+      <Sequence
+        name="多任务"
+        from={MULTI.start}
+        durationInFrames={MULTI.end - MULTI.start}
+      >
+        <Backdrop />
+        <MultitaskScene />
       </Sequence>
 
       <Sequence
@@ -187,6 +197,9 @@ export const HeroScene: React.FC = () => {
         name="归档便利贴 · 字幕"
         from={TENTH.start + 0.6 * FPS}
         durationInFrames={TENTH.end - TENTH.start - 0.6 * FPS}
+        style={{
+          translate: '0px -61.4px'
+        }}
       >
         <ArchiveCaption />
       </Sequence>
