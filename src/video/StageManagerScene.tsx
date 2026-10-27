@@ -75,7 +75,7 @@ export const StageManagerScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ opacity: enter, transform: `translateY(${(1 - enter) * 20 + 90}px) scale(1.26)` }}>
+      <div style={{ opacity: enter, transform: `translateY(${(1 - enter) * 20 + 140}px) scale(1.26)` }}>
         <MacChrome>
           <div
             style={{
@@ -86,7 +86,7 @@ export const StageManagerScene: React.FC = () => {
               background: '#FFFFFF',
             }}
           >
-            <div style={{ position: 'absolute', left: 30, top: 40, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ position: 'absolute', left: 30, top: 40, display: 'flex', flexDirection: 'column', gap: 56 }}>
               {STAGES.map((s, i) => (
                 <div
                   key={s.name}
