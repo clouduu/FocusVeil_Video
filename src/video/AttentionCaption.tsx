@@ -13,7 +13,7 @@ export type AttentionCaptionProps = {
 const DEFAULT_LAYOUT = {
   x: 960,
   y: 800,
-  fontSize: 88,
+  fontSize: 80,
 };
 
 export const AttentionCaption: React.FC<AttentionCaptionProps> = ({

@@ -47,7 +47,7 @@ export const StageManagerCaption: React.FC = () => {
           <div
             style={{
               fontFamily: FONT_SANS,
-              fontSize: 64,
+              fontSize: 58,
               fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: '-0.03em',

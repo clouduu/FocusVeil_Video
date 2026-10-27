@@ -49,7 +49,7 @@ export const ReReadingCaption: React.FC = () => {
           <div
             style={{
               fontFamily: FONT_SANS,
-              fontSize: 76,
+              fontSize: 68,
               fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: '-0.03em',
