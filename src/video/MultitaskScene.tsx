@@ -25,6 +25,7 @@ export const MultitaskScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ transform: 'scale(1.45) translateY(170px)' }}>
       {TASKS.map((task, i) => {
         const enter = interpolate(t, [0.3 + i * 0.8, 1.0 + i * 0.8], [0, 1], {
           ...clamp,
@@ -77,6 +78,7 @@ export const MultitaskScene: React.FC = () => {
           </div>
         );
       })}
+      </div>
 
       <Logo height={66} style={{ position: 'absolute', left: 72, top: 56 }} />
     </AbsoluteFill>
