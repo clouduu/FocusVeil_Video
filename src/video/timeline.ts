@@ -59,25 +59,25 @@ export const FIFTH = {
 
 export const SIXTH = {
   start: f(47),
-  end: f(59),
+  end: f(57.5),
 } as const;
 
 export const SEVENTH = {
-  start: f(59),
-  end: f(75),
+  start: f(57.5),
+  end: f(73.5),
 } as const;
 
 export const EIGHTH = {
-  start: f(75),
-  end: f(89),
+  start: f(73.5),
+  end: f(87.5),
 } as const;
 
 export const NINTH = {
-  start: f(89),
-  end: f(101),
+  start: f(87.5),
+  end: f(99.5),
 } as const;
 
-export const VIDEO_DURATION = f(101);
+export const VIDEO_DURATION = f(99.5);
 
 export const clamp = {
   extrapolateLeft: 'clamp',
