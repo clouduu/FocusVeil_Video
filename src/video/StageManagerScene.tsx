@@ -8,19 +8,19 @@ import { FPS } from './timeline';
 const STAGES = [
   {
     name: 'Today',
-    note: '#FFD43B',
+    note: '#FFF3C4',
     bg: '#FFFBEB',
     rows: ['9:30 Standup', '11:00 Design review'],
   },
   {
     name: 'Work',
-    note: '#C9A9F2',
+    note: '#F3E8FF',
     bg: '#F6F3FF',
     rows: ['1. Q3 plan', '2. Email Alex'],
   },
   {
     name: 'Reading',
-    note: '#A5DDB8',
+    note: '#E7F6EC',
     bg: '#F1FBF4',
     rows: ['1. Attention paper', '2. Highlight notes'],
   },
