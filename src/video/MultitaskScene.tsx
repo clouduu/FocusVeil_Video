@@ -131,6 +131,18 @@ export const MultitaskScene: React.FC = () => {
                   position: 'relative',
                 }}
               >
+                <div
+                  style={{
+                    fontFamily: FONT_SANS,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: 1,
+                    color: '#9CA3AF',
+                    marginBottom: 10,
+                  }}
+                >
+                  {task.label.toUpperCase()}
+                </div>
                 {i === 0 && <MailContent />}
                 {i === 1 && <CalendarContent />}
                 {i === 2 && <ReadingContent />}
