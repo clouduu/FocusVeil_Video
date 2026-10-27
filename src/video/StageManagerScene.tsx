@@ -2,7 +2,7 @@ import type React from 'react';
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { Logo } from './Logo';
 import { MacChrome } from './MacChrome';
-import { FONT_SANS } from './theme';
+import { FONT_SANS, FONT_SERIF } from './theme';
 import { clamp, FPS } from './timeline';
 
 const STAGES = [
@@ -17,9 +17,9 @@ const STAGES = [
     rows: ['1. Q3 plan', '2. Email Alex'],
   },
   {
-    name: 'Edit',
+    name: 'Reading',
     note: '#E7F6EC',
-    rows: ['1. Cut B-roll', '2. Add captions'],
+    rows: ['1. Attention paper', '2. Highlight notes'],
   },
 ];
 
@@ -84,15 +84,38 @@ const WorkContent: React.FC = () => (
   </div>
 );
 
-const EditContent: React.FC = () => (
-  <div style={{ fontFamily: FONT_SANS }}>
-    <div style={{ height: 260, borderRadius: 6, background: 'linear-gradient(135deg, #1B4A4F 0%, #2B6A63 60%, #6BB8A8 100%)' }} />
-    <div style={{ marginTop: 14, display: 'flex', gap: 6 }}>
-      {['#8B5CF6', '#2BB3A6', '#F6C56B', '#2BB3A6'].map((c, i) => (
-        <div key={i} style={{ flex: 1, height: 34, borderRadius: 4, background: c, opacity: 0.85 }} />
-      ))}
+const ReadingContent: React.FC = () => (
+  <div style={{ fontFamily: FONT_SERIF }}>
+    <div style={{ fontSize: 17, fontWeight: 600, color: '#1F2937' }}>
+      The Limits of Sustained Attention
     </div>
-    <div style={{ marginTop: 10, height: 10, borderRadius: 4, background: '#E5E7EB' }} />
+    <div style={{ fontSize: 10, color: '#9CA3AF', margin: '4px 0 14px' }}>
+      R. Chen, M. Alvarez · Journal of Attention Science, 2024
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, fontSize: 9, lineHeight: 1.65, color: '#4B5563' }}>
+      <div>
+        <p style={{ margin: '0 0 8px' }}>
+          Attention is a limited resource, allocated across the competing streams of information
+          that arrive at any given moment.
+        </p>
+        <p style={{ margin: '0 0 8px' }}>
+          When the demands of a task exceed the capacity available, performance does not degrade
+          smoothly, but in a cascade of small failures.
+        </p>
+      </div>
+      <div>
+        <p style={{ margin: '0 0 8px' }}>
+          Regressions — backward saccades to passages with ambiguous grammar — reveal the ongoing
+          calibration of effort.
+        </p>
+        <p style={{ margin: 0 }}>
+          <span style={{ background: 'rgba(168,219,190,0.55)', padding: '1px 2px' }}>
+            Comprehension is not simply a matter of decoding sequences
+          </span>
+          , but of constructing a coherent model of the text.
+        </p>
+      </div>
+    </div>
   </div>
 );
 
@@ -182,7 +205,7 @@ export const StageManagerScene: React.FC = () => {
 
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
               {active === 0 && (
-                <Window left={140} top={80} width={620} height={560}>
+                <Window left={70} top={80} width={620} height={560}>
                   <CalendarContent />
                 </Window>
               )}
@@ -193,7 +216,7 @@ export const StageManagerScene: React.FC = () => {
               )}
               {active === 2 && (
                 <Window left={70} top={80} width={660} height={560}>
-                  <EditContent />
+                  <ReadingContent />
                 </Window>
               )}
             </div>
