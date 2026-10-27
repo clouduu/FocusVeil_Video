@@ -54,7 +54,7 @@ export const MultitaskCaption: React.FC = () => {
               color: COLORS.ink,
             }}
           >
-            <span style={{ color: COLORS.tealDeep }}>多任务</span>，但忘记细节
+            多任务，<span style={{ color: COLORS.tealDeep }}>但忘记细节</span>
           </div>
         </div>
       </div>

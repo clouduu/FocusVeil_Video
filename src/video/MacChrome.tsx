@@ -2,12 +2,12 @@ import type React from 'react';
 import { Img, staticFile } from 'remotion';
 import { FONT_SANS } from './theme';
 
-export const MacChrome: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const MacChrome: React.FC<{ children: React.ReactNode; thin?: boolean }> = ({ children, thin }) => {
   return (
     <div
       style={{
         background: '#1A202C',
-        padding: '10px 10px 14px',
+        padding: thin ? '5px 5px 7px' : '10px 10px 14px',
         borderRadius: 12,
         boxShadow: '0 40px 110px rgba(15,40,35,0.35)',
       }}

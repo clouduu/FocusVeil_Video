@@ -31,7 +31,7 @@ export const MultitaskScene: React.FC = () => {
         translate: '-937.6px -707.4px'
       }}
     >
-      <div style={{ transform: 'scale(1.45) translateY(170px)' }}>
+      <div style={{ transform: 'scale(1.62) translateY(190px)' }}>
       {TASKS.map((task, i) => {
         const enter = interpolate(t, [0.3 + i * 0.8, 1.0 + i * 0.8], [0, 1], {
           ...clamp,
@@ -48,7 +48,7 @@ export const MultitaskScene: React.FC = () => {
               transform: `translateY(${(1 - enter) * 26}px) scale(${0.96 + enter * 0.04})`,
             }}
           >
-            <MacChrome>
+            <MacChrome thin>
               <div
                 style={{
                   width: 520,
