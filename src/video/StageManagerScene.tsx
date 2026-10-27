@@ -9,16 +9,19 @@ const STAGES = [
   {
     name: 'Today',
     note: '#FFF3C4',
+    bg: '#FFFBEB',
     rows: ['9:30 Standup', '11:00 Design review'],
   },
   {
     name: 'Work',
     note: '#F3E8FF',
+    bg: '#F6F3FF',
     rows: ['1. Q3 plan', '2. Email Alex'],
   },
   {
     name: 'Reading',
     note: '#E7F6EC',
+    bg: '#F1FBF4',
     rows: ['1. Attention paper', '2. Highlight notes'],
   },
 ];
@@ -176,7 +179,7 @@ export const StageManagerScene: React.FC = () => {
               height: 720,
               position: 'relative',
               overflow: 'hidden',
-              background: stage.note,
+              background: stage.bg,
             }}
           >
             <div style={{ position: 'absolute', left: 30, top: 40, display: 'flex', flexDirection: 'column', gap: 56 }}>
@@ -226,7 +229,7 @@ export const StageManagerScene: React.FC = () => {
                 width: 340,
                 minHeight: 220,
                 padding: '22px 26px',
-                background: stage.note,
+                background: stage.bg,
                 borderRadius: 6,
                 boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
               }}
