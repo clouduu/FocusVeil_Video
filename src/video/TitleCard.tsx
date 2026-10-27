@@ -252,7 +252,7 @@ export const TitleCard: React.FC<TitleCardProps> = ({ opacity, scale = 1 }) => {
               whiteSpace: 'nowrap',
             }}
           >
-            {renderChars('Struggles', Array.from('Struggles').map((_, index) => EN_START + index * EN_STAGGER))}
+            {renderChars('Attention Struggles', Array.from('Attention Struggles').map((_, index) => EN_START + index * EN_STAGGER))}
           </div>
           <div
             style={{
