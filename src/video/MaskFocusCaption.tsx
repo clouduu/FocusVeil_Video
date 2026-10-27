@@ -31,6 +31,7 @@ export const MaskFocusCaption: React.FC<{ mode: 'focus' | 'passthrough' }> = ({ 
             alignItems: 'center',
             padding: '14px 40px',
             borderRadius: 26,
+            clipPath: `inset(0 0 ${(1 - enter) * 100}% 0)`,
           }}
         >
           <div

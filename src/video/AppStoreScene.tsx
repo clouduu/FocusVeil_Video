@@ -23,7 +23,7 @@ export const AppStoreScene: React.FC = () => {
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Logo
         height={560}
-        opacity={0.16}
+        opacity={0.00}
         style={{
           position: 'absolute',
           left: '50%',

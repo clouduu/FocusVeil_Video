@@ -30,9 +30,9 @@ export const AttentionCaption: React.FC<AttentionCaptionProps> = ({
   return (
     <AbsoluteFill
       style={{
-        translate: '-490px 56.1px',
+        translate: '-632.1px 76.5px',
         scale: 0.937,
-        rotate: '0.1deg',
+        rotate: '0.1deg'
       }}
     >
       <div
@@ -55,6 +55,7 @@ export const AttentionCaption: React.FC<AttentionCaptionProps> = ({
             alignItems: 'center',
             padding: '20px 60px',
             borderRadius: 32,
+            clipPath: `inset(0 0 ${(1 - enter) * 100}% 0)`,
           }}
         >
           <div
