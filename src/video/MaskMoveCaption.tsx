@@ -43,7 +43,7 @@ export const MaskMoveCaption: React.FC = () => {
               marginBottom: 12,
             }}
           >
-            Move Mode, <span style={{ color: COLORS.tealDeep }}>Free Transform</span>
+            Move <span style={{ color: COLORS.tealDeep }}>Mode</span>
           </div>
           <div
             style={{
@@ -55,7 +55,7 @@ export const MaskMoveCaption: React.FC = () => {
               color: COLORS.ink,
             }}
           >
-            移动模式，<span style={{ color: COLORS.tealDeep }}>自由变换</span>
+            移动<span style={{ color: COLORS.tealDeep }}>模式</span>
           </div>
         </div>
       </div>
