@@ -5,6 +5,7 @@ import { Backdrop } from './video/Backdrop';
 import { BrandMark } from './video/BrandMark';
 import { EndLogo } from './video/EndLogo';
 import { GlobalNoteCaption } from './video/GlobalNoteCaption';
+import { AppStoreScene } from './video/AppStoreScene';
 import { StageManagerCaption } from './video/StageManagerCaption';
 import { StageManagerScene } from './video/StageManagerScene';
 import { GlobalNoteScene } from './video/GlobalNoteScene';
@@ -16,7 +17,7 @@ import { Cover } from './video/Cover';
 import { LineSkipCaption } from './video/LineSkipCaption';
 import { ReReadingCaption } from './video/ReReadingCaption';
 import { TryCaption } from './video/TryCaption';
-import { EIGHTH, FIFTH, FOURTH, FPS, SECOND, SEVENTH, SIXTH, THIRD, T } from './video/timeline';
+import { EIGHTH, FIFTH, FOURTH, FPS, NINTH, SECOND, SEVENTH, SIXTH, THIRD, T } from './video/timeline';
 
 export const HeroScene: React.FC = () => {
   return (
@@ -166,6 +167,15 @@ export const HeroScene: React.FC = () => {
         durationInFrames={EIGHTH.end - EIGHTH.start - 1 * FPS}
       >
         <StageManagerCaption />
+      </Sequence>
+
+      <Sequence
+        name="App Store 搜索"
+        from={NINTH.start}
+        durationInFrames={NINTH.end - NINTH.start}
+      >
+        <Backdrop />
+        <AppStoreScene />
       </Sequence>
     </AbsoluteFill>
   );
