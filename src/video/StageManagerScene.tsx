@@ -7,29 +7,102 @@ import { clamp, FPS } from './timeline';
 
 const STAGES = [
   {
-    name: 'Todo',
+    name: 'Today',
     note: '#FFF3C4',
-    rows: ['1. Buy milk 🥛', '2. Reply to Alex ✉️'],
+    rows: ['9:30 Standup', '11:00 Design review'],
   },
   {
-    name: 'Ideas',
+    name: 'Work',
     note: '#F3E8FF',
-    rows: ['1. Landing page 🎯', '2. Petal icon 🌿'],
+    rows: ['1. Q3 plan', '2. Email Alex'],
   },
   {
-    name: 'Groceries',
+    name: 'Edit',
     note: '#E7F6EC',
-    rows: ['1. Oat milk 🥛', '2. Blueberries 🫐'],
+    rows: ['1. Cut B-roll', '2. Add captions'],
   },
 ];
 
-const Window: React.FC<{ left: number; top: number; width: number; height: number; light?: string }> = ({
-  left,
-  top,
-  width,
-  height,
-  light = '#F7F9F8',
-}) => (
+const CalendarContent: React.FC = () => (
+  <div style={{ fontFamily: FONT_SANS }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+      <span style={{ fontSize: 18, fontWeight: 700, color: '#1F2937' }}>September 2026</span>
+      <span style={{ fontSize: 11, color: '#9CA3AF' }}>Month</span>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4, marginTop: 14 }}>
+      {Array.from({ length: 35 }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            height: 34,
+            borderRadius: 4,
+            background: i === 16 ? '#D9F2EC' : '#F7F9F8',
+            color: i === 16 ? '#1B7F74' : '#6B7280',
+            fontSize: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: i === 16 ? 700 : 400,
+          }}
+        >
+          {i + 1}
+        </div>
+      ))}
+    </div>
+    <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ padding: '8px 10px', borderRadius: 5, background: '#EAF6F2', fontSize: 11, color: '#1B7F74' }}>
+        9:30 · Standup
+      </div>
+      <div style={{ padding: '8px 10px', borderRadius: 5, background: '#F3EEF9', fontSize: 11, color: '#6D4E9C' }}>
+        11:00 · Design review
+      </div>
+    </div>
+  </div>
+);
+
+const WorkContent: React.FC = () => (
+  <div style={{ fontFamily: FONT_SANS }}>
+    <div style={{ fontSize: 18, fontWeight: 700, color: '#1F2937' }}>Q3 Planning</div>
+    <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {['Define the Q3 roadmap', 'Review the launch checklist', 'Email Alex about the deck'].map((row, i) => (
+        <div key={row} style={{ display: 'flex', gap: 9, alignItems: 'center', fontSize: 12, color: '#4B5563' }}>
+          <span
+            style={{
+              width: 14,
+              height: 14,
+              borderRadius: 4,
+              border: '1.5px solid #C4B5FD',
+              background: i === 0 ? '#8B5CF6' : '#FFFFFF',
+              flexShrink: 0,
+            }}
+          />
+          {row}
+        </div>
+      ))}
+    </div>
+    <div style={{ marginTop: 20, height: 180, borderRadius: 6, background: '#F7F9F8' }} />
+  </div>
+);
+
+const EditContent: React.FC = () => (
+  <div style={{ fontFamily: FONT_SANS }}>
+    <div style={{ height: 260, borderRadius: 6, background: 'linear-gradient(135deg, #1B4A4F 0%, #2B6A63 60%, #6BB8A8 100%)' }} />
+    <div style={{ marginTop: 14, display: 'flex', gap: 6 }}>
+      {['#8B5CF6', '#2BB3A6', '#F6C56B', '#2BB3A6'].map((c, i) => (
+        <div key={i} style={{ flex: 1, height: 34, borderRadius: 4, background: c, opacity: 0.85 }} />
+      ))}
+    </div>
+    <div style={{ marginTop: 10, height: 10, borderRadius: 4, background: '#E5E7EB' }} />
+  </div>
+);
+
+const Window: React.FC<{
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  children?: React.ReactNode;
+}> = ({ left, top, width, height, children }) => (
   <div
     style={{
       position: 'absolute',
@@ -58,7 +131,7 @@ const Window: React.FC<{ left: number; top: number; width: number; height: numbe
         <span key={c} style={{ width: 7, height: 7, borderRadius: '50%', background: c }} />
       ))}
     </div>
-    <div style={{ margin: 18, height: height - 60, borderRadius: 5, background: light }} />
+    <div style={{ margin: 18, height: height - 60 }}>{children}</div>
   </div>
 );
 
@@ -109,29 +182,27 @@ export const StageManagerScene: React.FC = () => {
 
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
               {active === 0 && (
-                <>
-                  <Window left={60} top={130} width={380} height={300} />
-                  <Window left={80} top={460} width={420} height={210} />
-                </>
+                <Window left={260} top={80} width={620} height={560}>
+                  <CalendarContent />
+                </Window>
               )}
               {active === 1 && (
-                <>
-                  <Window left={80} top={90} width={360} height={280} />
-                  <Window left={60} top={410} width={400} height={230} />
-                </>
+                <Window left={90} top={90} width={620} height={560}>
+                  <WorkContent />
+                </Window>
               )}
               {active === 2 && (
-                <>
-                  <Window left={40} top={230} width={400} height={300} />
-                  <Window left={100} top={500} width={380} height={180} />
-                </>
+                <Window left={70} top={80} width={660} height={560}>
+                  <EditContent />
+                </Window>
               )}
             </div>
 
             <div
               style={{
                 position: 'absolute',
-                right: 70,
+                left: active === 0 ? 40 : undefined,
+                right: active === 0 ? undefined : 70,
                 top: 40,
                 width: 340,
                 minHeight: 220,
