@@ -1,9 +1,9 @@
 import type React from 'react';
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { Logo } from './Logo';
 import { MacChrome } from './MacChrome';
 import { FONT_SANS, FONT_SERIF } from './theme';
-import { clamp, FPS } from './timeline';
+import { FPS } from './timeline';
 
 const STAGES = [
   {
@@ -164,10 +164,7 @@ export const StageManagerScene: React.FC = () => {
 
   const active = t < 2.3 ? 0 : t < 4.6 ? 1 : 2;
   const stage = STAGES[active];
-  const enter = interpolate(t, [0, 0.8], [0, 1], {
-    ...clamp,
-    easing: Easing.out(Easing.cubic),
-  });
+  const enter = 1;
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>

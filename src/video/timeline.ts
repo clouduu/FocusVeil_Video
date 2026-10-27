@@ -44,7 +44,7 @@ export const MULTI = {
 
 export const FOURTH = {
   start: f(30),
-  tryIn: f(30.3),
+  tryIn: f(30),
   tryOut: f(33),
   logoIn: f(32.5),
   end: f(37),

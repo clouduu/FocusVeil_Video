@@ -73,10 +73,7 @@ export const MaskFocusScene: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
 
-  const paperIn = interpolate(t, [0.2, 0.9], [0, 1], {
-    ...clamp,
-    easing: Easing.out(Easing.cubic),
-  });
+  const paperIn = 1;
   const select = interpolate(t, [8, 9.5], [0, 1], {
     ...clamp,
     easing: Easing.inOut(Easing.cubic),

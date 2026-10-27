@@ -8,10 +8,7 @@ export const AppStoreScene: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
 
-  const enter = interpolate(t, [0, 0.8], [0, 1], {
-    ...clamp,
-    easing: Easing.out(Easing.cubic),
-  });
+  const enter = 1;
   const type = Math.min(9, Math.floor(interpolate(t, [0.5, 1.5], [0, 9], clamp)));
   const resultIn = interpolate(t, [1.4, 2.0], [0, 1], {
     ...clamp,

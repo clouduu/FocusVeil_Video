@@ -5,10 +5,7 @@ import { clamp } from './timeline';
 
 export const TryCaption: React.FC = () => {
   const frame = useCurrentFrame();
-  const enter = interpolate(frame, [0, 12], [0, 1], {
-    ...clamp,
-    easing: Easing.out(Easing.cubic),
-  });
+  const enter = 1;
   const exit = interpolate(frame, [66, 81], [0, 1], {
     ...clamp,
     easing: Easing.in(Easing.cubic),
@@ -43,7 +40,7 @@ export const TryCaption: React.FC = () => {
             color: COLORS.ink,
           }}
         >
-          TRY
+          Give it a try
         </div>
         <div
           style={{
