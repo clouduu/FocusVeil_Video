@@ -43,7 +43,7 @@ export const GlobalNoteCaption: React.FC = () => {
               marginBottom: 12,
             }}
           >
-            Global Mode, <span style={{ color: COLORS.tealDeep }}>Always on Top</span>
+            Global <span style={{ color: COLORS.tealDeep }}>Sticky Note</span>
           </div>
           <div
             style={{
@@ -55,7 +55,7 @@ export const GlobalNoteCaption: React.FC = () => {
               color: COLORS.ink,
             }}
           >
-            全局模式，<span style={{ color: COLORS.tealDeep }}>保持置顶</span>
+            全局<span style={{ color: COLORS.tealDeep }}>便利贴</span>
           </div>
         </div>
       </div>
