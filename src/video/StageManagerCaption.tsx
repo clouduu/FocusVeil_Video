@@ -43,7 +43,7 @@ export const StageManagerCaption: React.FC = () => {
               marginBottom: 12,
             }}
           >
-            Block Mode, <span style={{ color: COLORS.tealDeep }}>Switch Freely</span>
+            Window <span style={{ color: COLORS.tealDeep }}>Sticky Note</span>
           </div>
           <div
             style={{
@@ -55,7 +55,7 @@ export const StageManagerCaption: React.FC = () => {
               color: COLORS.ink,
             }}
           >
-            分块模式，<span style={{ color: COLORS.tealDeep }}>随心切换</span>
+            窗口<span style={{ color: COLORS.tealDeep }}>便利贴</span>
           </div>
         </div>
       </div>
