@@ -12,6 +12,7 @@ import { StageManagerCaption } from './video/StageManagerCaption';
 import { StageManagerScene } from './video/StageManagerScene';
 import { GlobalNoteScene } from './video/GlobalNoteScene';
 import { MaskFocusCaption } from './video/MaskFocusCaption';
+import { MultitaskCaption } from './video/MultitaskCaption';
 import { MultitaskScene } from './video/MultitaskScene';
 import { MaskFocusScene } from './video/MaskFocusScene';
 import { MaskMoveCaption } from './video/MaskMoveCaption';
@@ -72,6 +73,14 @@ export const HeroScene: React.FC = () => {
       >
         <Backdrop />
         <MultitaskScene />
+      </Sequence>
+
+      <Sequence
+        name="多任务 · 字幕"
+        from={MULTI.start + 1 * FPS}
+        durationInFrames={MULTI.end - MULTI.start - 1 * FPS}
+      >
+        <MultitaskCaption />
       </Sequence>
 
       <Sequence
