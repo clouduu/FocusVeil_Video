@@ -162,7 +162,7 @@ export const StageManagerScene: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
 
-  const active = t < 3 ? 0 : t < 6 ? 1 : 2;
+  const active = t < 2.3 ? 0 : t < 4.6 ? 1 : 2;
   const stage = STAGES[active];
   const enter = interpolate(t, [0, 0.8], [0, 1], {
     ...clamp,
