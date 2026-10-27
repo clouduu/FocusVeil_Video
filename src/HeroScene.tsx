@@ -26,7 +26,8 @@ import { EIGHTH, FIFTH, FOURTH, FPS, MULTI, NINTH, SECOND, SEVENTH, SIXTH, TENTH
 export const HeroScene: React.FC = () => {
   return (
     <AbsoluteFill>
-      <Audio src={staticFile('score.mp3')} volume={0.5} />
+      <Audio src={staticFile('score-bed.mp3')} volume={0.5} />
+      <Audio src={staticFile('score-cuts.mp3')} volume={0.75} />
       <Backdrop />
       <Sequence
         name="左上角 logo"
