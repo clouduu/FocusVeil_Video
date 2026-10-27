@@ -12,9 +12,9 @@ const TASKS = [
 ];
 
 const POS = [
-  { left: 220, top: 70 },
-  { left: 400, top: 180 },
-  { left: 580, top: 290 },
+  { left: 240, top: 90 },
+  { left: 350, top: 170 },
+  { left: 460, top: 250 },
 ];
 
 export const MultitaskScene: React.FC = () => {
@@ -28,10 +28,10 @@ export const MultitaskScene: React.FC = () => {
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        translate: '-937.6px -707.4px'
+        translate: '-1012.6px -773.4px'
       }}
     >
-      <div style={{ transform: 'scale(1.62) translateY(190px)' }}>
+      <div style={{ transform: 'scale(1.82) translateY(210px)' }}>
       {TASKS.map((task, i) => {
         const enter = interpolate(t, [0.3 + i * 0.8, 1.0 + i * 0.8], [0, 1], {
           ...clamp,
