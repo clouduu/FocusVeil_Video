@@ -28,6 +28,7 @@ export const ArchiveCaption: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            textShadow: '0 0 16px rgba(255,255,255,0.85), 0 0 34px rgba(255,255,255,0.6)',
             padding: '10px 30px',
             clipPath: `inset(0 0 ${(1 - enter) * 100}% 0)`,
           }}

@@ -27,6 +27,7 @@ export const TryCaption: React.FC = () => {
       <div
         style={{
           opacity: enter * (1 - exit),
+          textShadow: '0 0 16px rgba(255,255,255,0.85), 0 0 34px rgba(255,255,255,0.6)',
           clipPath: `inset(0 0 ${(1 - enter) * 100}% 0)`,
           transform: `translate(${x}px, ${y}px)`,
           textAlign: 'center',

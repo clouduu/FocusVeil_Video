@@ -39,6 +39,9 @@ export const ArchiveScene: React.FC = () => {
                 width: 1020,
                 borderRadius: 10,
                 boxShadow: '0 24px 60px rgba(15,40,35,0.16)',
+                scale: 0.674,
+                translate: '1.5px -58.1px',
+                rotate: '-0.1deg'
               }}
             />
           </div>

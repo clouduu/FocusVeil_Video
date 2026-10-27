@@ -53,6 +53,7 @@ export const AttentionCaption: React.FC<AttentionCaptionProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            textShadow: '0 0 16px rgba(255,255,255,0.85), 0 0 34px rgba(255,255,255,0.6)',
             padding: '20px 60px',
             borderRadius: 32,
             clipPath: `inset(0 0 ${(1 - enter) * 100}% 0)`,
