@@ -6,6 +6,8 @@ import { BrandMark } from './video/BrandMark';
 import { EndLogo } from './video/EndLogo';
 import { GlobalNoteCaption } from './video/GlobalNoteCaption';
 import { AppStoreScene } from './video/AppStoreScene';
+import { ArchiveCaption } from './video/ArchiveCaption';
+import { ArchiveScene } from './video/ArchiveScene';
 import { StageManagerCaption } from './video/StageManagerCaption';
 import { StageManagerScene } from './video/StageManagerScene';
 import { GlobalNoteScene } from './video/GlobalNoteScene';
@@ -17,7 +19,7 @@ import { Cover } from './video/Cover';
 import { LineSkipCaption } from './video/LineSkipCaption';
 import { ReReadingCaption } from './video/ReReadingCaption';
 import { TryCaption } from './video/TryCaption';
-import { EIGHTH, FIFTH, FOURTH, FPS, NINTH, SECOND, SEVENTH, SIXTH, THIRD, T } from './video/timeline';
+import { EIGHTH, FIFTH, FOURTH, FPS, NINTH, SECOND, SEVENTH, SIXTH, TENTH, THIRD, T } from './video/timeline';
 
 export const HeroScene: React.FC = () => {
   return (
@@ -165,8 +167,28 @@ export const HeroScene: React.FC = () => {
         name="分块模式 · 字幕"
         from={EIGHTH.start + 1 * FPS}
         durationInFrames={EIGHTH.end - EIGHTH.start - 1 * FPS}
+        style={{
+          translate: '0px 70.2px'
+        }}
       >
         <StageManagerCaption />
+      </Sequence>
+
+      <Sequence
+        name="归档便利贴"
+        from={TENTH.start}
+        durationInFrames={TENTH.end - TENTH.start}
+      >
+        <Backdrop />
+        <ArchiveScene />
+      </Sequence>
+
+      <Sequence
+        name="归档便利贴 · 字幕"
+        from={TENTH.start + 0.6 * FPS}
+        durationInFrames={TENTH.end - TENTH.start - 0.6 * FPS}
+      >
+        <ArchiveCaption />
       </Sequence>
 
       <Sequence
