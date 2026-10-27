@@ -108,9 +108,24 @@ export const StageManagerScene: React.FC = () => {
             </div>
 
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
-              <Window left={110} top={110} width={560} height={300} light={active === 0 ? '#F7F9F8' : '#EEF4F3'} />
-              {active === 1 && <Window left={470} top={240} width={440} height={260} light="#F3EEF9" />}
-              {active === 2 && <Window left={380} top={130} width={520} height={340} light="#EAF6EE" />}
+              {active === 0 && (
+                <>
+                  <Window left={110} top={100} width={560} height={300} />
+                  <Window left={470} top={340} width={420} height={230} light="#F2F7F5" />
+                </>
+              )}
+              {active === 1 && (
+                <>
+                  <Window left={230} top={60} width={460} height={280} light="#F3EEF9" />
+                  <Window left={420} top={390} width={450} height={240} light="#EFEAF7" />
+                </>
+              )}
+              {active === 2 && (
+                <>
+                  <Window left={80} top={210} width={520} height={320} light="#EAF6EE" />
+                  <Window left={460} top={80} width={450} height={260} light="#EFF8F2" />
+                </>
+              )}
             </div>
 
             <div
