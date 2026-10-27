@@ -32,52 +32,52 @@ export const SECOND = {
 
 export const THIRD = {
   start: f(17.5),
-  duration: f(8.5),
+  duration: f(7.5),
   captionIn: f(18.8),
-  end: f(26),
+  end: f(25),
 } as const;
 
 export const FOURTH = {
-  start: f(26),
-  tryIn: f(26.3),
-  tryOut: f(29),
-  logoIn: f(28.5),
-  end: f(34),
+  start: f(25),
+  tryIn: f(25.3),
+  tryOut: f(28),
+  logoIn: f(27.5),
+  end: f(33),
 } as const;
 
 export const FIFTH = {
-  start: f(34),
-  paperIn: f(34.2),
-  masksIn: f(35.2),
-  focusTitleIn: f(36.2),
-  cursorIn: f(41),
-  selectStart: f(42),
-  selectEnd: f(43.5),
-  passthroughTitleIn: f(40.4),
-  end: f(48),
+  start: f(33),
+  paperIn: f(33.2),
+  masksIn: f(34.2),
+  focusTitleIn: f(35.2),
+  cursorIn: f(40),
+  selectStart: f(41),
+  selectEnd: f(42.5),
+  passthroughTitleIn: f(39.4),
+  end: f(47),
 } as const;
 
 export const SIXTH = {
-  start: f(48),
-  end: f(60),
+  start: f(47),
+  end: f(59),
 } as const;
 
 export const SEVENTH = {
-  start: f(60),
-  end: f(76),
+  start: f(59),
+  end: f(75),
 } as const;
 
 export const EIGHTH = {
-  start: f(76),
-  end: f(90),
+  start: f(75),
+  end: f(89),
 } as const;
 
 export const NINTH = {
-  start: f(90),
-  end: f(102),
+  start: f(89),
+  end: f(101),
 } as const;
 
-export const VIDEO_DURATION = f(102);
+export const VIDEO_DURATION = f(101);
 
 export const clamp = {
   extrapolateLeft: 'clamp',
