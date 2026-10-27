@@ -1,5 +1,6 @@
 import type React from 'react';
 import { AbsoluteFill, Easing, Img, interpolate, staticFile, useCurrentFrame } from 'remotion';
+import { Logo } from './Logo';
 import { COLORS, FONT_SANS } from './theme';
 import { clamp, FPS } from './timeline';
 
@@ -20,6 +21,17 @@ export const AppStoreScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Logo
+        height={380}
+        opacity={0.07}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          translate: '-50% -50%',
+        }}
+      />
+
       <div
         style={{
           width: 1060,
