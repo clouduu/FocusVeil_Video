@@ -1,5 +1,5 @@
 import type React from 'react';
-import { AbsoluteFill, Sequence } from 'remotion';
+import { AbsoluteFill, Audio, Sequence, staticFile } from 'remotion';
 import { AttentionCaption } from './video/AttentionCaption';
 import { Backdrop } from './video/Backdrop';
 import { BrandMark } from './video/BrandMark';
@@ -26,6 +26,7 @@ import { EIGHTH, FIFTH, FOURTH, FPS, MULTI, NINTH, SECOND, SEVENTH, SIXTH, TENTH
 export const HeroScene: React.FC = () => {
   return (
     <AbsoluteFill>
+      <Audio src={staticFile('score.mp3')} volume={0.5} />
       <Backdrop />
       <Sequence
         name="左上角 logo"
@@ -140,6 +141,9 @@ export const HeroScene: React.FC = () => {
         name="遮罩调节"
         from={SIXTH.start}
         durationInFrames={SIXTH.end - SIXTH.start}
+        style={{
+          translate: '0px -38.8px'
+        }}
       >
         <Backdrop />
         <MaskResizeScene />
