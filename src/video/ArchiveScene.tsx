@@ -1,5 +1,7 @@
 import type React from 'react';
 import { AbsoluteFill, Easing, Img, interpolate, staticFile, useCurrentFrame } from 'remotion';
+import { Logo } from './Logo';
+import { MacChrome } from './MacChrome';
 import { clamp, FPS } from './timeline';
 
 export const ArchiveScene: React.FC = () => {
@@ -12,18 +14,38 @@ export const ArchiveScene: React.FC = () => {
   });
 
   return (
-    <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Img
-        src={staticFile('archive-panel.webp')}
+    <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <div
         style={{
-          width: 1200,
-          marginTop: 36,
-          borderRadius: 14,
-          boxShadow: '0 40px 110px rgba(15,40,35,0.22)',
+          transform: `translateY(180px) scale(1.36)`,
           opacity: enter,
-          transform: `translateY(${(1 - enter) * 22}px)`,
         }}
-      />
+      >
+        <MacChrome>
+          <div
+            style={{
+              width: 1100,
+              height: 720,
+              background: '#FFFFFF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+            }}
+          >
+            <Img
+              src={staticFile('archive-panel.webp')}
+              style={{
+                width: 1020,
+                borderRadius: 10,
+                boxShadow: '0 24px 60px rgba(15,40,35,0.16)',
+              }}
+            />
+          </div>
+        </MacChrome>
+      </div>
+
+      <Logo height={66} style={{ position: 'absolute', left: 72, top: 56 }} />
     </AbsoluteFill>
   );
 };
