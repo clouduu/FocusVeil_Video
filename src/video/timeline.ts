@@ -59,35 +59,35 @@ export const FIFTH = {
   selectStart: f(47),
   selectEnd: f(48.5),
   passthroughTitleIn: f(45.4),
-  end: f(52.5),
+  end: f(50.5),
 } as const;
 
 export const SIXTH = {
-  start: f(52.5),
-  end: f(62.5),
+  start: f(50.5),
+  end: f(58.5),
 } as const;
 
 export const SEVENTH = {
-  start: f(62.5),
-  end: f(78),
+  start: f(58.5),
+  end: f(74),
 } as const;
 
 export const EIGHTH = {
-  start: f(78),
-  end: f(86.5),
+  start: f(74),
+  end: f(82.5),
 } as const;
 
 export const TENTH = {
-  start: f(86.5),
-  end: f(94),
+  start: f(82.5),
+  end: f(90),
 } as const;
 
 export const NINTH = {
-  start: f(94),
-  end: f(106),
+  start: f(90),
+  end: f(102),
 } as const;
 
-export const VIDEO_DURATION = f(106);
+export const VIDEO_DURATION = f(102);
 
 export const clamp = {
   extrapolateLeft: 'clamp',
