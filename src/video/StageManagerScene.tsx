@@ -182,7 +182,7 @@ export const StageManagerScene: React.FC = () => {
 
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
               {active === 0 && (
-                <Window left={260} top={80} width={620} height={560}>
+                <Window left={140} top={80} width={620} height={560}>
                   <CalendarContent />
                 </Window>
               )}
