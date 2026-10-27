@@ -229,7 +229,7 @@ export const StageManagerScene: React.FC = () => {
                 width: 340,
                 minHeight: 220,
                 padding: '22px 26px',
-                background: stage.bg,
+                background: stage.note,
                 borderRadius: 6,
                 boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
               }}
