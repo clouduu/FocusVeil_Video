@@ -42,7 +42,7 @@ export const MultitaskCaption: React.FC = () => {
               marginBottom: 10,
             }}
           >
-            Love Multitasking, <span style={{ color: COLORS.tealDeep }}>Forget the Details</span>
+            Multitasking, <span style={{ color: COLORS.tealDeep }}>Forget the Details</span>
           </div>
           <div
             style={{
@@ -54,7 +54,7 @@ export const MultitaskCaption: React.FC = () => {
               color: COLORS.ink,
             }}
           >
-            喜欢<span style={{ color: COLORS.tealDeep }}>多任务</span>，但忘记细节
+            <span style={{ color: COLORS.tealDeep }}>多任务</span>，但忘记细节
           </div>
         </div>
       </div>

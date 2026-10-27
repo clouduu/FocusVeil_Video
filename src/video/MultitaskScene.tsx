@@ -24,7 +24,13 @@ export const MultitaskScene: React.FC = () => {
   const disappear = interpolate(t, [6.6, 7.4], [1, 0], clamp);
 
   return (
-    <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
+    <AbsoluteFill
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        translate: '-937.6px -707.4px'
+      }}
+    >
       <div style={{ transform: 'scale(1.45) translateY(170px)' }}>
       {TASKS.map((task, i) => {
         const enter = interpolate(t, [0.3 + i * 0.8, 1.0 + i * 0.8], [0, 1], {
@@ -54,20 +60,30 @@ export const MultitaskScene: React.FC = () => {
               >
                 <div
                   style={{
-                    width: 300,
-                    minHeight: 190,
+                    width: 340,
+                    minHeight: 200,
                     padding: '20px 22px',
-                    background: task.note,
-                    borderRadius: 6,
-                    boxShadow: '0 18px 40px rgba(0,0,0,0.14)',
+                    background: '#F7F9F8',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: 10,
+                    boxShadow: '0 18px 40px rgba(0,0,0,0.10)',
                   }}
                 >
-                  <div style={{ fontFamily: FONT_SANS, fontSize: 20, fontWeight: 700, color: '#3F3A1F' }}>
+                  <div style={{ fontFamily: FONT_SANS, fontSize: 19, fontWeight: 700, color: '#1F2937' }}>
                     {task.label}
                   </div>
-                  <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {task.rows.map((row) => (
-                      <div key={row} style={{ fontFamily: FONT_SANS, fontSize: 16, color: '#4A4324' }}>
+                      <div key={row} style={{ display: 'flex', gap: 9, alignItems: 'center', fontFamily: FONT_SANS, fontSize: 15, color: '#4B5563' }}>
+                        <span
+                          style={{
+                            width: 14,
+                            height: 14,
+                            borderRadius: 4,
+                            border: '1.5px solid #C4B5FD',
+                            flexShrink: 0,
+                          }}
+                        />
                         {row}
                       </div>
                     ))}
