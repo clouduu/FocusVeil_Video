@@ -110,20 +110,20 @@ export const StageManagerScene: React.FC = () => {
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
               {active === 0 && (
                 <>
-                  <Window left={110} top={100} width={560} height={300} />
-                  <Window left={470} top={340} width={420} height={230} />
+                  <Window left={60} top={130} width={380} height={300} />
+                  <Window left={80} top={460} width={420} height={210} />
                 </>
               )}
               {active === 1 && (
                 <>
-                  <Window left={230} top={60} width={460} height={280} />
-                  <Window left={420} top={390} width={450} height={240} />
+                  <Window left={80} top={90} width={360} height={280} />
+                  <Window left={60} top={410} width={400} height={230} />
                 </>
               )}
               {active === 2 && (
                 <>
-                  <Window left={80} top={210} width={520} height={320} />
-                  <Window left={460} top={80} width={450} height={260} />
+                  <Window left={40} top={230} width={400} height={300} />
+                  <Window left={100} top={500} width={380} height={180} />
                 </>
               )}
             </div>
@@ -131,8 +131,8 @@ export const StageManagerScene: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                right: active === 0 ? 220 : active === 1 ? 170 : 140,
-                top: active === 0 ? 420 : active === 1 ? 380 : 400,
+                right: 70,
+                top: 40,
                 width: 340,
                 minHeight: 220,
                 padding: '22px 26px',
