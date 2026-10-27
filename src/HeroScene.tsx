@@ -27,7 +27,7 @@ export const HeroScene: React.FC = () => {
   return (
     <AbsoluteFill>
       <Audio src={staticFile('score-bed.mp3')} volume={0.5} />
-      <Audio src={staticFile('score-cuts.mp3')} volume={0.75} />
+      <Audio src={staticFile('score-cuts.mp3')} volume={0.35} />
       <Backdrop />
       <Sequence
         name="左上角 logo"
