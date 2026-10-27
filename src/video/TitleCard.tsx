@@ -266,7 +266,7 @@ export const TitleCard: React.FC<TitleCardProps> = ({ opacity, scale = 1 }) => {
               whiteSpace: 'nowrap',
             }}
           >
-            {renderChars('困境', Array.from('困境').map((_, index) => CN_START + index * CN_STAGGER))}
+            {renderChars('注意力困境', Array.from('注意力困境').map((_, index) => CN_START + index * CN_STAGGER))}
           </div>
         </div>
       </div>
