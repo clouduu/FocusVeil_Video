@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attention_limits.pdf</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Charter", "Georgia", "Times New Roman", serif;
+            background: #F9FAFB;
+            padding: 40px 80px;
+            line-height: 1.7;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .red { background: #FF5F57; }
+        .yellow { background: #FEBC2E; }
+        .green { background: #28C840; }
+        .filename {
+            margin-left: auto;
+            font-size: 14px;
+            color: #6B7280;
+        }
+        .abstract {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        .meta {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 40px;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            font-size: 16px;
+            color: #1F2937;
+        }
+        .column {
+            line-height: 1.85;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .highlight-box {
+            font-size: 180px;
+            font-weight: 700;
+            color: #14B8A6;
+            letter-spacing: -0.03em;
+            text-align: center;
+            line-height: 1.1;
+        }
+        .subtitle {
+            font-size: 56px;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="traffic-light red"></div>
+        <div class="traffic-light yellow"></div>
+        <div class="traffic-light green"></div>
+        <div class="filename">attention_limits.pdf</div>
+    </div>
+
+    <div class="abstract">ABSTRACT</div>
+    <h1>The Limits of Sustained Attention</h1>
+    <div class="meta">R. Chen, M. Alvarez · Journal of Attention Science, 2024</div>
+
+    <div class="content">
+        <div class="column">
+            <p>
+                Attention is a limited resource, allocated across the competing streams
+                of information that arrive at any given moment. When the demands of a
+                task exceed the capacity available to process them, performance does
+                not degrade smoothly, but in a cascade of small failures. The eyes
+                drift away from the line being read. Participants report losing track of
+                the sentence already half-read. Regressions — backward saccades to
+                passages with ambiguous grammar or intricate phrasing — do not signal
+                failure alone, but reveal the ongoing calibration of effort. Both
+                interest in the material and the cost of extracting meaning shape how
+                working memory is distributed while reading. Comprehension is not simply
+                a matter of decoding sequences, but of constructing a coherent model of
+                the text as participants read.
+            </p>
+        </div>
+        <div class="column">
+            <p>
+                Reading is not a single act but a chain of small, tightly timed decisions: where
+                to look next, how long to hold, when to move on. Each decision costs a fraction of
+                attention, and neither is unlimited. Under load the chain frays at its weakest
+                link, and the reader is left reconstructing meaning from a sequence they no
+                longer quite remember. Comprehension depends on the reader being able to hold
+                the beginning of a sentence in mind while the end of it arrives, and on
+                returning to the same place twice only when the text demands it. Both
+                conditions fail quietly. Nothing announces the failure; the reader simply arrives
+                at the bottom of the page with less than they started. Reading is not robust to
+                distraction. A second study manipulated line length and column width: narrower
+                measures reduced regression frequency by 16 percent without cost to reading
+                speed, but only for participants reporting high trait inattention.
+            </p>
+        </div>
+    </div>
+
+    <div class="overlay">
+        <div>
+            <div class="highlight-box">ADHD 阅读障碍</div>
+            <div class="subtitle">跳行 · 重复 · 找不到回家的路</div>
+        </div>
+    </div>
+</body>
+</html>

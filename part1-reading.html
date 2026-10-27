@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>FocusVeil · 01 阅读</title>
+<!-- 1920×1080 自动缩放。滚动 / ↑↓ / 空格切换场景，R 重播。
+     00 首图：一页密排论文，静态。01 聚焦一段文字：重复读行。02 聚焦一段文字：跳读。 -->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#0f1f1d;
+    --muted:#6f817e;
+    --teal:#38b6ae;
+    --teal-deep:#22968f;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;
+    --serif:"New York","Iowan Old Style","Songti SC",Georgia,"Times New Roman",serif;
+  }
+  html,body{height:100%;overflow:hidden;background:#f4faf8}
+  body{font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+  /* ---------- 滚动：三层空场景，只用来切状态 ---------- */
+  #scroller{position:fixed;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none}
+  #scroller::-webkit-scrollbar{display:none}
+  #scroller section{height:100vh;scroll-snap-align:start}
+
+  /* ---------- 舞台 ---------- */
+  .stage{
+    position:fixed;left:50%;top:50%;width:1920px;height:1080px;
+    transform-origin:center;background:#f4faf8;overflow:hidden;pointer-events:none;
+    transition:background-color .8s ease;
+  }
+  .stage.zoom{background:#fdfefd}
+  .stage::after{ /* 极轻的颗粒 */
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;z-index:6;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* 每个场景一层环境色，交叉淡入 */
+  .tint{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;z-index:0}
+  .tint.on{opacity:1}
+  .t1{background:
+        radial-gradient(1200px 760px at 82% 8%, rgba(168,238,222,.62), transparent 62%),
+        radial-gradient(900px 620px at 4% 96%, rgba(226,199,246,.42), transparent 62%),
+        radial-gradient(760px 520px at 6% 4%, rgba(255,255,255,.9), transparent 70%)}
+  .t2{background:
+        radial-gradient(1200px 760px at 84% 6%, rgba(166,208,246,.62), transparent 62%),
+        radial-gradient(900px 620px at 2% 94%, rgba(206,228,246,.55), transparent 62%),
+        radial-gradient(760px 520px at 6% 4%, rgba(255,255,255,.9), transparent 70%)}
+  .t3{background:
+        radial-gradient(1200px 760px at 80% 8%, rgba(245,193,218,.58), transparent 62%),
+        radial-gradient(900px 620px at 6% 96%, rgba(240,208,226,.5), transparent 62%),
+        radial-gradient(760px 520px at 6% 4%, rgba(255,255,255,.9), transparent 70%)}
+
+  .brand{
+    position:absolute;left:132px;top:36px;z-index:4;
+    font:700 30px/1 var(--sans);letter-spacing:-.02em;color:var(--ink);
+  }
+  .brand span{color:var(--teal-deep)}
+
+  /* ---------- 首图：居中一页，两栏密排 ---------- */
+  .paperLayer{
+    position:absolute;inset:0;z-index:1;transform-origin:50% 48%;
+    transition:opacity .7s ease,transform .9s cubic-bezier(.2,.75,.25,1);
+  }
+  .paperLayer.off{opacity:0;transform:scale(1.12)}
+  .paper{
+    position:absolute;left:260px;top:90px;width:1400px;height:900px;
+    background:#fff;border-radius:22px;overflow:hidden;
+    box-shadow:0 2px 6px rgba(20,60,55,.05),0 40px 90px -34px rgba(20,70,62,.38),0 0 0 1px rgba(20,70,62,.06);
+    animation:rise 1.1s cubic-bezier(.2,.75,.25,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(40px) scale(.99)}to{opacity:1;transform:none}}
+
+  .chrome{
+    height:48px;display:flex;align-items:center;gap:8px;padding:0 24px;
+    background:#fbfdfc;border-bottom:1px solid rgba(20,70,62,.07);
+  }
+  .chrome i{width:10px;height:10px;border-radius:50%}
+  .chrome i:nth-child(1){background:#ff6159;opacity:.85}
+  .chrome i:nth-child(2){background:#ffbd2e;opacity:.85}
+  .chrome i:nth-child(3){background:#28c840;opacity:.85}
+  .chrome .fname{
+    margin:0 auto;font:500 12.5px/1 var(--sans);color:#93a5a2;
+    transform:translateX(-14px);
+  }
+
+  .page{padding:30px 56px}
+  .plabel{font:600 10px/1 var(--sans);letter-spacing:.2em;color:#a9b8b5;text-transform:uppercase}
+  .ptitle{font:600 31px/1.28 var(--serif);letter-spacing:-.01em;color:#14231f;margin:12px 0 8px}
+  .pauthors{font:400 13.5px/1.5 var(--sans);color:#8b9b98;margin-bottom:26px}
+
+  .cols{display:flex;gap:40px;align-items:flex-start}
+  .lines{position:relative;width:624px;flex:none;overflow:hidden}
+  .lines .ln{
+    width:fit-content;white-space:nowrap;
+    font:400 18px/26px var(--serif);color:#243430;letter-spacing:.002em;
+  }
+  .filler{flex:1;font:400 18px/26px var(--serif);color:#243430;text-align:justify;hyphens:auto}
+
+  /* ---------- 聚焦页 ---------- */
+  .focus{
+    position:absolute;inset:0;z-index:2;opacity:0;transform:scale(1.05);
+    transition:opacity .62s ease .09s,transform .95s cubic-bezier(.2,.75,.25,1) .09s;
+  }
+  .stage.zoom .focus{opacity:1;transform:none}
+
+  .stage.zoom .tint.on{opacity:.55}
+
+  .fhead{position:absolute;left:320px;top:132px;display:grid}
+  .fidx{position:absolute;right:320px;top:152px;font:600 13px/1 var(--sans);
+        letter-spacing:.2em;color:#a9b8b5}
+  .fs{grid-area:1/1;opacity:0;transform:translateY(10px);pointer-events:none;
+      transition:opacity .5s ease,transform .65s cubic-bezier(.2,.7,.3,1)}
+  .fs.on{opacity:1;transform:none}
+  .fs h1{font:600 62px/1.08 var(--sans);letter-spacing:-.035em;color:var(--ink);margin:16px 0 12px}
+  .fs .cap{font:400 20px/1.6 var(--sans);color:var(--muted);letter-spacing:.01em}
+
+  .block{position:absolute;left:320px;top:430px;width:1280px}
+  .fl{
+    position:relative;z-index:2;width:fit-content;white-space:nowrap;
+    font:400 34px/68px var(--serif);color:#1c2b28;letter-spacing:.004em;
+    transition:color .55s ease,opacity .55s ease;
+  }
+  .fl.missed{color:#bf8f96;opacity:.6;text-decoration:line-through;
+             text-decoration-color:rgba(178,108,118,.62);text-decoration-thickness:2px}
+  .fl.again{color:#8ea5a1}
+  .fl.dup{overflow:hidden;height:0;transition:height .48s cubic-bezier(.2,.75,.3,1)}
+
+  #fband{
+    position:absolute;left:-14px;top:0;height:48px;width:0;z-index:1;
+    border-radius:12px;opacity:0;
+    background:linear-gradient(90deg,rgba(56,182,174,.22),rgba(56,182,174,.07));
+    box-shadow:inset 3px 0 0 rgba(56,182,174,.6);
+    transition:transform .55s cubic-bezier(.25,.8,.3,1),width .45s ease,opacity .4s ease,filter .5s ease;
+  }
+
+  /* ---------- 首图主标题：压在论文上层、居中（仅首图） ---------- */
+  .title{
+    position:absolute;left:0;right:0;top:50%;z-index:4;
+    transform:translateY(-50%);
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;pointer-events:none;
+    transition:opacity .4s ease,transform .6s cubic-bezier(.2,.7,.3,1);
+    animation:titleIn .8s cubic-bezier(.2,.75,.25,1) both;
+  }
+  /* 文字底下的柔光罩：论文再密，字也压得住 */
+  .title::before{
+    content:"";position:absolute;z-index:-1;
+    left:50%;top:50%;transform:translate(-50%,-50%);
+    width:1500px;height:600px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(251,253,252,.985) 0%,rgba(251,253,252,.97) 52%,rgba(251,253,252,.72) 74%,rgba(251,253,252,0) 100%);
+  }
+  @keyframes titleIn{from{opacity:0;transform:translateY(-46%) scale(.97)}to{opacity:1;transform:translateY(-50%) scale(1)}}
+  .title.off{animation:none;opacity:0;transform:translateY(-54%) scale(.98)}
+  .title h1{
+    font:800 168px/1 var(--sans);letter-spacing:-.045em;color:var(--ink);
+    margin-bottom:30px;
+  }
+  .title h1 em{font-style:normal;color:var(--teal-deep)}
+  /* 副标题同样按"视频里一眼能读到"的标准放大，不做小字 */
+  .title .sub{
+    font:700 60px/1.25 var(--sans);letter-spacing:.02em;color:#3d534f;
+  }
+  .step{
+    display:inline-flex;align-items:center;gap:9px;
+    font:600 12.5px/1 var(--sans);letter-spacing:.18em;color:var(--teal-deep);
+    padding:8px 15px;border-radius:999px;
+    background:rgba(56,182,174,.1);border:1px solid rgba(56,182,174,.22);
+  }
+  .step i{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+
+  .hint{
+    position:absolute;left:132px;bottom:44px;z-index:4;
+    display:flex;align-items:center;gap:10px;
+    font:500 14px/1 var(--sans);letter-spacing:.06em;color:#9aaba8;
+    transition:opacity .5s ease,transform .5s ease;
+  }
+  .hint.hide{opacity:0;transform:translateY(8px)}
+  .hint span{
+    width:26px;height:26px;border-radius:50%;border:1px solid rgba(20,70,62,.16);
+    display:grid;place-items:center;font-size:12px;color:#8fa19e;
+  }
+</style>
+</head>
+<body>
+
+<div id="scroller">
+  <section></section><section></section><section></section>
+</div>
+
+<div class="stage" id="stage">
+  <div class="tint t1 on" id="t1"></div>
+  <div class="tint t2" id="t2"></div>
+  <div class="tint t3" id="t3"></div>
+
+  <div class="brand">Focus<span>Veil</span></div>
+
+  <!-- 首图：整页论文，静态 -->
+  <div class="paperLayer" id="paperLayer">
+    <div class="paper">
+      <div class="chrome"><i></i><i></i><i></i><span class="fname">attention-limits.pdf</span></div>
+      <div class="page">
+        <div class="plabel">Abstract</div>
+        <h2 class="ptitle">The Limits of Sustained Attention</h2>
+        <div class="pauthors">R. Chen, M. Alvarez · Journal of Attention Science, 2024</div>
+        <div class="cols">
+          <div class="lines" id="lines"></div>
+          <div class="filler" id="filler"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聚焦页：同一页推近，只留一段文字 -->
+  <div class="focus">
+    <div class="fhead">
+      <div class="fs" id="fs1">
+        <div class="step"><i></i>02 &nbsp;重复读行</div>
+        <h1>重复读行</h1>
+        <p class="cap">视线退回同一行，又读了一遍。</p>
+      </div>
+      <div class="fs" id="fs2">
+        <div class="step"><i></i>03 &nbsp;跳读</div>
+        <h1>跳读</h1>
+        <p class="cap">两行被整段跳过，视线直接落到下面。</p>
+      </div>
+    </div>
+    <div class="block" id="block">
+      <div id="fband"></div>
+    </div>
+    <div class="fidx" id="fidx">02 / 03</div>
+  </div>
+
+  <!-- 首图主标题：直接压在论文上，居中 -->
+  <div class="title" id="title">
+    <h1>ADHD <em>阅读障碍</em></h1>
+    <p class="sub">跳行 · 重复 · 找不到回家的路</p>
+  </div>
+
+  <div class="hint" id="hint"><span>↓</span>滚动，看三种表现</div>
+</div>
+
+<script>
+/* ---------- 首图论文 ---------- */
+const LINES = [
+  "Attention is a limited resource, allocated across the competing streams",
+  "of information that arrive at any given moment. When the demands of a",
+  "task exceed the capacity available to process them, performance does",
+  "not degrade smoothly, but in a small number of highly recurrent ways.",
+  "The eyes drift away from the line being read; the reader returns to a",
+  "sentence already finished; or the mind moves ahead, skipping entire",
+  "passages without registering that anything has been missed. These",
+  "failures are not a matter of willpower, nor evidence of a lack of",
+  "interest in the material. They reflect the ordinary limits of visual",
+  "working memory under sustained cognitive load. In four experiments,",
+  "participants read expository texts of equivalent length and difficulty",
+  "while their eye movements were recorded at 1000 Hz. We find that",
+  "regressions — backward saccades returning the gaze to text already",
+  "read — occur 11.4 times per hundred words in the high-load condition,",
+  "and only 3.2 times in the low-load condition. The spacing of those",
+  "regressions predicted failures of comprehension better than reading",
+  "speed, vocabulary, or self-reported effort, which suggests that the",
+  "stability of visual attention, rather than its intensity, is the limit.",
+  "A second study manipulated line length and column width: narrower",
+  "measures reduced regression frequency by 18 percent without any cost",
+  "to reading speed, but only for participants reporting high trait",
+  "inattention. We argue that a reading interface should therefore reduce",
+  "the spatial uncertainty of the gaze rather than increase the salience",
+  "of the text. A stable, spatially constrained region of focus may",
+  "support comprehension more than larger type, wider margins, or slower",
+  "presentation alone. These effects persisted across four sessions."
+];
+
+const FILLER =
+  "Reading is not a single act but a chain of small, tightly timed decisions: where to look next, " +
+  "how long to hold, when to move on. Each decision costs a fraction of a second and a fraction of " +
+  "attention, and neither is unlimited. Under load the chain frays at its weakest link, and the " +
+  "reader is left reconstructing meaning from a sequence they no longer quite remember. " +
+  "Comprehension depends on the reader being able to hold the beginning of a sentence in mind " +
+  "while the end of it arrives, and on the visual system returning to the same place twice only " +
+  "when the text demands it. Both conditions fail quietly. Nothing announces the failure; the " +
+  "reader simply arrives at the bottom of the page with less than they started with.";
+
+/* ---------- 聚焦段落：一行一句，重复/跳过都看得清 ---------- */
+const FLINES = [
+  "Attention is a limited resource, allocated across the competing streams of input",
+  "that arrive at any given moment. Under load, the chain frays at its weakest link.",
+  "The eyes drift away from the line being read, and the reader begins again.",
+  "The same sentence is read twice, three times, before the meaning lands.",
+  "Then the mind moves ahead, skipping an entire passage without registering it.",
+  "Nothing announces the failure. The reader simply arrives at the bottom."
+];
+
+const stage      = document.getElementById('stage');
+const hint       = document.getElementById('hint');
+const paperLayer = document.getElementById('paperLayer');
+const title      = document.getElementById('title');
+const block      = document.getElementById('block');
+const fband      = document.getElementById('fband');
+const tints      = [1, 2, 3].map(n => document.getElementById('t' + n));
+const fsEls      = [document.getElementById('fs1'), document.getElementById('fs2')];
+const fidx       = document.getElementById('fidx');
+
+/* 首图两栏 */
+const linesEl = document.getElementById('lines');
+const fillerEl = document.getElementById('filler');
+LINES.forEach(t => {
+  const d = document.createElement('div');
+  d.className = 'ln';
+  d.textContent = t;
+  linesEl.appendChild(d);
+});
+(function fillRight(){                 // 右栏灌到和左栏一样高（二分到最接近的一段）
+  const target = linesEl.offsetHeight;
+  const long = (FILLER + ' ' + FILLER + ' ' + FILLER).slice(0, 2600);
+  let lo = 0, hi = long.length;
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1;
+    fillerEl.textContent = long.slice(0, mid);
+    if (fillerEl.offsetHeight <= target) lo = mid; else hi = mid - 1;
+  }
+  fillerEl.textContent = long.slice(0, long.lastIndexOf(' ', lo));
+})();
+
+/* 聚焦段落 */
+FLINES.forEach(t => {
+  const d = document.createElement('div');
+  d.className = 'fl';
+  d.textContent = t;
+  block.appendChild(d);
+});
+const fl = [...block.querySelectorAll('.fl')];
+const ROWH  = parseFloat(getComputedStyle(fl[0]).lineHeight) || 68;
+const BANDH = 48;
+
+/* ---------- 缩放 ---------- */
+function fit(){
+  const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+  stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+}
+fit();
+
+/* ---------- 聚焦段落里的光标 ---------- */
+function bandTo(el, dur = 550, op = 1){
+  fband.style.transitionDuration = dur + 'ms';
+  fband.style.width = (el.offsetWidth + 28) + 'px';
+  fband.style.transform = `translateY(${el.offsetTop + (ROWH - BANDH) / 2}px)`;
+  fband.style.opacity = op;
+}
+
+let cur = -1, gen = 0;
+const pause = (ms, g) => new Promise(r => setTimeout(() => r(g === gen), ms));
+
+function resetBlock(){
+  fl.forEach(el => el.classList.remove('missed', 'again'));
+  block.querySelectorAll('.dup').forEach(el => el.remove());
+  fband.style.transitionDuration = '0ms'; fband.style.opacity = 0;
+}
+
+/* 把这一行原样再排一行出来 */
+function addDup(el){
+  const d = document.createElement('div');
+  d.className = 'fl dup';
+  d.textContent = el.textContent;
+  el.after(d);
+  void d.offsetHeight;                     // 先落一帧，再接高度
+  d.style.height = ROWH + 'px';
+  return d;
+}
+
+/* ---------- 01 重复读行：同一行被重新读了一遍 ---------- */
+async function sceneReread(g){
+  while (g === gen) {
+    const a = fl[2];
+    resetBlock();
+    bandTo(a, 0);
+    if (!await pause(520, g)) return;
+    if (!await pause(1500, g)) return;
+    if (!await pause(280, g)) return;
+
+    a.classList.add('again');              // 读过的那行暗下去
+    const d = addDup(a);                   // 同一行又出现一次
+    if (!await pause(520, g)) return;
+
+    bandTo(d, 520);
+    if (!await pause(700, g)) return;
+    if (!await pause(1300, g)) return;
+    if (!await pause(1200, g)) return;
+
+    fband.style.opacity = 0;
+    if (!await pause(260, g)) return;
+    d.style.height = '0px';                // 收回去，重来
+    a.classList.remove('again');
+    if (!await pause(560, g)) return;
+    d.remove();
+    if (!await pause(620, g)) return;
+  }
+}
+
+/* ---------- 02 跳读：两行没人看见，直接到下面 ---------- */
+async function sceneSkip(g){
+  while (g === gen) {
+    const a = fl[0];
+    resetBlock();
+    bandTo(a, 0);
+    if (!await pause(520, g)) return;
+    if (!await pause(1300, g)) return;
+    if (!await pause(300, g)) return;
+
+    fl[1].classList.add('missed');         // 这两行被跳过去了
+    fl[2].classList.add('missed');
+    if (!await pause(460, g)) return;
+
+    const b = fl[3];
+    bandTo(b, 560);
+    if (!await pause(780, g)) return;
+    if (!await pause(1300, g)) return;
+    if (!await pause(1600, g)) return;
+
+    fband.style.opacity = 0;
+    if (!await pause(600, g)) return;
+  }
+}
+
+const runners = [null, sceneReread, sceneSkip];
+
+function setScene(i){
+  i = Math.max(0, Math.min(2, i));
+  if (i === cur) return;
+  cur = i;
+  gen++;
+  const zoom = i > 0;
+  stage.classList.toggle('zoom', zoom);
+  paperLayer.classList.toggle('off', zoom);
+  title.classList.toggle('off', zoom);
+  hint.classList.toggle('hide', zoom);
+  tints.forEach((el, j) => el.classList.toggle('on', j === i));
+  fsEls.forEach((el, j) => el.classList.toggle('on', j === i - 1));
+  fidx.textContent = `0${i + 1} / 03`;
+  resetBlock();
+  const g = gen;
+  if (zoom) setTimeout(() => { if (g === gen) runners[i](g); }, 420);
+}
+
+/* ---------- 滚动驱动 ---------- */
+const scroller = document.getElementById('scroller');
+scroller.addEventListener('scroll', () => {
+  setScene(Math.round(scroller.scrollTop / innerHeight));
+}, { passive: true });
+
+function goTo(i){
+  i = Math.max(0, Math.min(2, i));
+  scroller.scrollTo({ top: i * innerHeight, behavior: 'smooth' });
+}
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'r') location.reload();
+  if (['arrowdown', 'pagedown', ' '].includes(k)) { e.preventDefault(); goTo(cur + 1); }
+  if (['arrowup', 'pageup'].includes(k)) { e.preventDefault(); goTo(cur - 1); }
+});
+addEventListener('resize', () => {
+  fit();
+  scroller.scrollTop = Math.max(0, cur) * innerHeight;
+});
+setTimeout(() => setScene(0), 700);
+</script>
+</body>
+</html>
