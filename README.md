@@ -11,8 +11,6 @@
 
 <img src="docs/cover.png" width="860" alt="FocusVeil promo cover" />
 
-**如果这个项目帮你省了时间，点个 ⭐️ 就是最大的支持。**
-
 </div>
 
 ---
@@ -51,6 +49,10 @@ npx remotion render Hero out/focusveil.mp4
 ```
 
 > 改片时建议只跑 Studio 预览；`npm run lint` 过了再导出，不要每改一版就渲染 MP4。
+
+<img src="docs/studio.webp" width="860" alt="Remotion Studio timeline" />
+
+在 Studio 里逐帧预览：左侧是 composition 与图层，右侧是参数，底部时间轴直接拖。
 
 ## 目录
 
