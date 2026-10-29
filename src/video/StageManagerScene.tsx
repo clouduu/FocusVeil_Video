@@ -265,7 +265,7 @@ export const StageManagerScene: React.FC = () => {
                     position: 'absolute',
                     inset: 0,
                     opacity: 1 - progress,
-                    transform: `translateX(${-90 * progress}px) scale(${1 - 0.18 * progress})`,
+                    transform: `translateX(${-190 * progress}px) scale(${1 - 0.45 * progress})`,
                     transformOrigin: 'left center',
                   }}
                 >
@@ -280,7 +280,7 @@ export const StageManagerScene: React.FC = () => {
                   transform:
                     switchAt === null
                       ? 'none'
-                      : `translateX(${-90 * (1 - progress)}px) scale(${0.82 + 0.18 * progress})`,
+                      : `translateX(${-190 * (1 - progress)}px) scale(${0.55 + 0.45 * progress})`,
                   transformOrigin: 'left center',
                 }}
               >
@@ -295,7 +295,7 @@ export const StageManagerScene: React.FC = () => {
                   right: 70,
                   top: 40,
                   opacity: 1 - progress,
-                  transform: `translateX(${-70 * progress}px) scale(${1 - 0.15 * progress})`,
+                  transform: `translateX(${-130 * progress}px) scale(${1 - 0.32 * progress})`,
                   transformOrigin: 'left center',
                 }}
               >
@@ -311,7 +311,7 @@ export const StageManagerScene: React.FC = () => {
                 transform:
                   switchAt === null
                     ? 'none'
-                    : `translateX(${-70 * (1 - progress)}px) scale(${0.85 + 0.15 * progress})`,
+                    : `translateX(${-130 * (1 - progress)}px) scale(${0.68 + 0.32 * progress})`,
                 transformOrigin: 'left center',
               }}
             >
