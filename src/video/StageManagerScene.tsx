@@ -1,5 +1,5 @@
 import type React from 'react';
-import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, interpolateColors, useCurrentFrame } from 'remotion';
 import { Logo } from './Logo';
 import { MacChrome } from './MacChrome';
 import { FONT_SANS, FONT_SERIF } from './theme';
@@ -166,8 +166,63 @@ export const StageManagerScene: React.FC = () => {
   const t = frame / FPS;
 
   const active = t < 2.3 ? 0 : t < 4.6 ? 1 : 2;
+  const switchAt = t < 2.3 ? null : t < 4.6 ? 2.3 : 4.6;
+  const progress = switchAt === null ? 1 : Math.min(1, Math.max(0, (t - switchAt) / 0.5));
+  const prev = Math.max(0, active - 1);
   const stage = STAGES[active];
+  const prevStage = STAGES[prev];
+  const wallpaper =
+    switchAt === null ? stage.bg : interpolateColors(progress, [0, 1], [prevStage.bg, stage.bg]);
   const enter = 1;
+
+  const renderWindows = (index: number) => {
+    if (index === 0) {
+      return (
+        <Window left={70} top={80} width={620} height={560}>
+          <CalendarContent />
+        </Window>
+      );
+    }
+    if (index === 1) {
+      return (
+        <Window left={90} top={90} width={620} height={560}>
+          <WorkContent />
+        </Window>
+      );
+    }
+    return (
+      <Window left={70} top={80} width={660} height={560}>
+        <ReadingContent />
+      </Window>
+    );
+  };
+
+  const renderNote = (index: number) => {
+    const s = STAGES[index];
+    return (
+      <div
+        style={{
+          width: 340,
+          minHeight: 220,
+          padding: '22px 26px',
+          background: s.note,
+          borderRadius: 6,
+          boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
+        }}
+      >
+        <div style={{ fontFamily: FONT_SANS, fontSize: 22, fontWeight: 700, color: '#3F3A1F' }}>
+          {s.name}
+        </div>
+        <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {s.rows.map((row) => (
+            <div key={row} style={{ fontFamily: FONT_SANS, fontSize: 19, color: '#4A4324' }}>
+              {row}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -179,7 +234,7 @@ export const StageManagerScene: React.FC = () => {
               height: 720,
               position: 'relative',
               overflow: 'hidden',
-              background: stage.bg,
+              background: wallpaper,
             }}
           >
             <div style={{ position: 'absolute', left: 30, top: 40, display: 'flex', flexDirection: 'column', gap: 56 }}>
@@ -204,46 +259,63 @@ export const StageManagerScene: React.FC = () => {
             </div>
 
             <div style={{ position: 'absolute', inset: 0, left: 190 }}>
-              {active === 0 && (
-                <Window left={70} top={80} width={620} height={560}>
-                  <CalendarContent />
-                </Window>
+              {switchAt !== null && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: 1 - progress,
+                    transform: `translateX(${-90 * progress}px) scale(${1 - 0.18 * progress})`,
+                    transformOrigin: 'left center',
+                  }}
+                >
+                  {renderWindows(prev)}
+                </div>
               )}
-              {active === 1 && (
-                <Window left={90} top={90} width={620} height={560}>
-                  <WorkContent />
-                </Window>
-              )}
-              {active === 2 && (
-                <Window left={70} top={80} width={660} height={560}>
-                  <ReadingContent />
-                </Window>
-              )}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  opacity: switchAt === null ? 1 : progress,
+                  transform:
+                    switchAt === null
+                      ? 'none'
+                      : `translateX(${-90 * (1 - progress)}px) scale(${0.82 + 0.18 * progress})`,
+                  transformOrigin: 'left center',
+                }}
+              >
+                {renderWindows(active)}
+              </div>
             </div>
 
+            {switchAt !== null && (
+              <div
+                style={{
+                  position: 'absolute',
+                  right: 70,
+                  top: 40,
+                  opacity: 1 - progress,
+                  transform: `translateX(${-70 * progress}px) scale(${1 - 0.15 * progress})`,
+                  transformOrigin: 'left center',
+                }}
+              >
+                {renderNote(prev)}
+              </div>
+            )}
             <div
               style={{
                 position: 'absolute',
                 right: 70,
                 top: 40,
-                width: 340,
-                minHeight: 220,
-                padding: '22px 26px',
-                background: stage.note,
-                borderRadius: 6,
-                boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
+                opacity: switchAt === null ? 1 : progress,
+                transform:
+                  switchAt === null
+                    ? 'none'
+                    : `translateX(${-70 * (1 - progress)}px) scale(${0.85 + 0.15 * progress})`,
+                transformOrigin: 'left center',
               }}
             >
-              <div style={{ fontFamily: FONT_SANS, fontSize: 22, fontWeight: 700, color: '#3F3A1F' }}>
-                {stage.name}
-              </div>
-              <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {stage.rows.map((row) => (
-                  <div key={row} style={{ fontFamily: FONT_SANS, fontSize: 19, color: '#4A4324' }}>
-                    {row}
-                  </div>
-                ))}
-              </div>
+              {renderNote(active)}
             </div>
           </div>
         </MacChrome>
